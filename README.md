@@ -22,9 +22,9 @@ Uploads are limited to 5 MB, and extracted CV text is limited to 20,000 characte
 ## Project Structure
 
 - `index.py` – FastAPI application and validation logic
-- `public/index.html` – frontend layout
-- `public/style.css` – styling
-- `public/app.js` – client-side logic
+- `static/index.html` – frontend layout
+- `static/style.css` – styling
+- `static/app.js` – client-side logic
 - `tests/test_cv_checker.py` – automated tests
 - `sample_cv.txt` – example CV with all required sections
 - `incomplete_cv.txt` – example CV with missing sections
@@ -78,4 +78,4 @@ This project demonstrates a few key Python ideas:
 
 ## Deployment
 
-This project is designed to work as a simple Python web app and can be adapted for deployment on Vercel or Netlify with a minimal server configuration.
+Vercel detects `index.py` automatically (FastAPI preset). Keep frontend files in `static/`, not Vercel's reserved `public/` directory: Vercel excludes `public/` from the Python function bundle, which makes `StaticFiles` fail at import time. The app mounts `static/` at `/public`, so the browser URLs stay unchanged. Push the changes to redeploy.

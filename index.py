@@ -7,19 +7,19 @@ from zipfile import BadZipFile
 from docx import Document
 from docx.opc.exceptions import PackageNotFoundError
 from fastapi import FastAPI, File, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
 BASE_DIR = Path(__file__).resolve().parent
-PUBLIC_DIR = BASE_DIR / "public"
+STATIC_DIR = BASE_DIR / "static"
 MAX_CV_TEXT_LENGTH = 20000
 MAX_UPLOAD_BYTES = 5 * 1024 * 1024
 
 app = FastAPI(title="CV Format Checker", version="1.0.0")
-app.mount("/public", StaticFiles(directory=str(PUBLIC_DIR)), name="public")
+app.mount("/public", StaticFiles(directory=str(STATIC_DIR)), name="public")
 
 SECTION_RULES = [
     {
@@ -313,9 +313,9 @@ def health_check() -> Dict[str, str]:
 
 
 @app.get("/")
-def home() -> FileResponse:
+def home() -> Response:
     """Serve the main frontend page."""
-    return FileResponse(PUBLIC_DIR / "index.html")
+    return FileResponse(STATIC_DIR / "index.html")
 
 
 @app.get("/sample_cv.txt")

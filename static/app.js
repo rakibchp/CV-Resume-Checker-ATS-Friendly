@@ -95,6 +95,33 @@ function renderAtsAnalysis(analysis) {
   );
 }
 
+async function parseApiResponse(response) {
+  const text = await response.text();
+  let payload = null;
+
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    payload = null;
+  }
+
+  if (!response.ok) {
+    const message =
+      (payload && (payload.detail || payload.message)) ||
+      text.trim().slice(0, 200) ||
+      `Request failed with status ${response.status}.`;
+    throw new Error(message);
+  }
+
+  if (!payload) {
+    throw new Error(
+      `Unexpected non-JSON response from the server (status ${response.status}).`,
+    );
+  }
+
+  return payload;
+}
+
 function showResults(result) {
   emptyState.classList.add('hidden');
   resultContent.classList.remove('hidden');
@@ -140,11 +167,7 @@ async function validateCv() {
       body: JSON.stringify({ cv_text: text }),
     });
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.detail || 'Something went wrong.');
-    }
+    const result = await parseApiResponse(response);
 
     showResults(result);
   } catch (error) {
@@ -186,11 +209,7 @@ async function uploadCvFile(file) {
       method: 'POST',
       body: formData,
     });
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.detail || 'Could not read the selected file.');
-    }
+    const result = await parseApiResponse(response);
 
     cvInput.value = result.cv_text;
     updateCharCount();
