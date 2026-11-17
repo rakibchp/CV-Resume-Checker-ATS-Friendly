@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV / Resume Format Checker</title>
+    <link rel="stylesheet" href="/public/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <h1>CV / Resume Format Checker</h1>
+        <p>Check whether your CV includes the essential sections expected in a standard format.</p>
+      </div>
+    </header>
+
+    <main class="container app-layout">
+      <section class="panel input-panel">
+        <div class="panel-header">
+          <h2>Paste your CV / Resume</h2>
+          <span id="charCount" class="char-count">0 / 20000</span>
+        </div>
+
+        <label class="sr-only" for="cvInput">CV / Resume text</label>
+        <textarea id="cvInput" placeholder="Paste your CV here..." maxlength="20000"></textarea>
+
+        <p id="uploadHelp" class="upload-help">
+          You can also upload a TXT, PDF, or DOCX file (maximum 5 MB).
+        </p>
+        <div class="button-row">
+          <label for="cvFileInput" class="secondary-btn upload-button">Upload CV / Resume</label>
+          <input
+            id="cvFileInput"
+            class="sr-only"
+            type="file"
+            accept=".txt,.pdf,.docx"
+            aria-describedby="uploadHelp uploadStatus"
+          />
+          <button id="sampleButton" class="secondary-btn" type="button">Load Sample CV / Resume</button>
+          <button id="clearButton" class="secondary-btn" type="button">Clear</button>
+          <button id="submitButton" class="primary-btn" type="button">Check My CV / Resume</button>
+        </div>
+
+        <p id="uploadStatus" class="upload-status" aria-live="polite"></p>
+        <div id="loading" class="loading hidden" aria-live="polite">Checking your CV / Resume...</div>
+      </section>
+
+      <section class="panel result-panel">
+        <h2>Result Dashboard</h2>
+
+        <div id="emptyState" class="empty-state">
+          <p>Your CV / Resume analysis results will appear here.</p>
+        </div>
+
+        <div id="resultContent" class="hidden">
+          <div class="score-box">
+            <span class="label">Overall Compliance Score</span>
+            <div id="scoreValue" class="score-value">0</div>
+            <div id="statusValue" class="status-badge">Not Checked</div>
+          </div>
+
+          <section class="ats-card" aria-labelledby="atsTitle">
+            <h3 id="atsTitle">ATS-Friendly Text Check</h3>
+            <p class="ats-disclaimer">
+              A separate text-based checklist score—not an ATS simulation or a guarantee of compatibility.
+            </p>
+            <div class="ats-score-row">
+              <strong><span id="atsScore">0</span>/100</strong>
+              <span id="atsSummary">Not checked</span>
+            </div>
+            <p id="atsLimitation" class="ats-limitation"></p>
+            <h4>Checklist</h4>
+            <ul id="atsChecks" class="ats-check-list"></ul>
+            <h4>ATS tips</h4>
+            <ul id="atsRecommendations" class="suggestions-list"></ul>
+          </section>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span>Total Sections</span>
+              <strong id="totalSections">0</strong>
+            </div>
+            <div class="stat-card passed">
+              <span>Passed Checks</span>
+              <strong id="passedSections">0</strong>
+            </div>
+            <div class="stat-card failed">
+              <span>Failed Checks</span>
+              <strong id="failedSections">0</strong>
+            </div>
+            <div class="stat-card">
+              <span>Detected Sections</span>
+              <strong id="detectedSections">0</strong>
+            </div>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-card">
+              <h3>Email Validation</h3>
+              <p id="emailStatus" class="pill neutral">Not checked</p>
+            </div>
+            <div class="info-card">
+              <h3>Phone Validation</h3>
+              <p id="phoneStatus" class="pill neutral">Not checked</p>
+            </div>
+          </div>
+
+          <div class="result-section">
+            <h3>Detected Sections</h3>
+            <ul id="detectedList" class="tag-list"></ul>
+          </div>
+
+          <div class="result-section">
+            <h3>Missing Sections</h3>
+            <ul id="missingList" class="tag-list missing"></ul>
+          </div>
+
+          <div class="result-section">
+            <h3>Improvement Suggestions</h3>
+            <ul id="suggestionsList" class="suggestions-list"></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container text-purple-200">
+        <p><strong>Task Provider: Amit Roy, Instructor, DEPT of IIT Dhaka University</strong></p>
+      </div>
+    </footer>
+
+    <script src="/public/app.js"></script>
+  </body>
+</html>

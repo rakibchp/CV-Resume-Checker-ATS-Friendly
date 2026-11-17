@@ -1,0 +1,23 @@
+Full Name: Ayesha Rahman
+Email Address: ayesha.rahman@email.com
+Phone Number: +8801712345678
+
+Career Objective
+I am a motivated and detail-oriented graduate seeking a software development role where I can apply my problem-solving ability and learning mindset.
+
+Educational Qualification
+B.Sc. in Computer Science and Engineering
+Dhaka University, 2023
+
+Technical Skills
+Python, JavaScript, HTML, CSS, FastAPI, Git, SQL
+
+Work Experience / Projects
+- Built a student management dashboard using Python and Flask.
+- Developed a portfolio website with responsive layout and modern design.
+- Created an internship project for data analysis and report generation.
+
+References
+Dr. S. Ahmed
+Associate Professor, Department of CSE
+Dhaka University
